@@ -5,14 +5,6 @@ import 'login.dart';
 
 void main() => runApp(MyApp());
 
-final dummySnapshot = [
-	{"name": "Filip", "votes": 15},
-	{"name": "Abraham", "votes": 14},
-	{"name": "Richard", "votes": 11},
-	{"name": "Ike", "votes": 10},
-	{"name": "Justin", "votes": 1},
-];
-
 class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
@@ -24,25 +16,25 @@ class MyApp extends StatelessWidget {
 			},
 			title: 'Expense Manager',
 			theme: ThemeData(
-        		primarySwatch: Colors.blue,
+				brightness: Brightness.dark,
 			),
 		);
 	}
 }
 
-class MyHomePage extends StatefulWidget {
-	MyHomePage({Key key, this.title}) : super(key: key);
+class HomePage extends StatefulWidget {
+	HomePage({Key key, this.title}) : super(key: key);
 	final String title;
 
 	@override
-	_MyHomePageState createState() => _MyHomePageState();
+	_HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBar(title: Text('Baby Name Votes')),
+			appBar: AppBar(title: Text('Categories')),
 			body: _buildBody(context),
 		);
 	}
@@ -78,7 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
 				),
 				child: ListTile(
 					title: Text(record.name),
-//					trailing: Text(record.votes.toString()),
 					onTap: () => print(record),
 				),
 			),
