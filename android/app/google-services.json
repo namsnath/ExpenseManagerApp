@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "363213996017",
+    "firebase_url": "https://budgetmanager-sem4.firebaseio.com",
+    "project_id": "budgetmanager-sem4",
+    "storage_bucket": "budgetmanager-sem4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363213996017:android:a974699ae8f79800",
+        "android_client_info": {
+          "package_name": "com.namsnath.expensemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "363213996017-vmuiod1q97ggpf405tbvcsvd09j84ped.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP-ELFOteTa2Hxg-8bIxfVbr6o7KKb-Q8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
