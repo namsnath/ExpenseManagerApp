@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'login.dart';
+
 void main() => runApp(MyApp());
 
 final dummySnapshot = [
@@ -15,11 +17,15 @@ class MyApp extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return MaterialApp(
+			initialRoute: 'loginPage',
+			routes: {
+				'homePage': (context) => HomePage(title: 'Expense Manager Home Page',),
+				'loginPage': (context) => LoginPage(title: 'Expense Manager Login Page'),
+			},
 			title: 'Expense Manager',
 			theme: ThemeData(
         		primarySwatch: Colors.blue,
 			),
-			home: MyHomePage(title: 'Expense Manager Home Page'),
 		);
 	}
 }
