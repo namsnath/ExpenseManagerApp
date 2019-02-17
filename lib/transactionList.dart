@@ -80,7 +80,7 @@ class _TransactionListPageState extends State<TransactionListPage> {
 					title: Text('Balance'),
 					trailing: Text(
 							sum.toString(),
-							style: TextStyle(color: (sum > 0) ? Colors.green : Colors.red)
+							style: TextStyle(color: (sum >= 0) ? Colors.green : Colors.red)
 					),
 					onTap: () => print(sum),
 				),
