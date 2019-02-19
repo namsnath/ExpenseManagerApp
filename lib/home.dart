@@ -92,23 +92,22 @@ class _HomePageState extends State<HomePage> {
 					.where('user', isEqualTo: data)
 					.snapshots(),
 			builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-				if (!snapshot.hasData) return LinearProgressIndicator();
+				if (!snapshot.hasData) return _buildLoadingBalanceTile();
 				var docs = snapshot.data.documents;
 				print('balanceStream = ${docs.length}');
-				/*if(docs.length == 0) {
-					return _buildBalanceTile(sum);
-				} else {*/
+
+				if (docs.length != 0) {
 					var list = docs.map((doc) {
 						var txn = TransactionModel.fromSnapshot(doc);
-						if(txn.type == 'income')
+						if (txn.type == 'income')
 							return txn.amount;
 						else
-							return -1*txn.amount;
+							return -1 * txn.amount;
 					}).toList();
 					sum = list.reduce((sum, i) => sum + i);
+				}
 
-					return _buildBalanceTile(sum);
-//				}
+				return _buildBalanceTile(sum);
 			},
 		);
 	}
@@ -120,7 +119,15 @@ class _HomePageState extends State<HomePage> {
 				trailing: Text(sum.toString(), style: TextStyle(color: (sum >= 0) ? Colors.green : Colors.red)),
 			),
 		);
+	}
 
+	Widget _buildLoadingBalanceTile() {
+		return ListTile(
+			title: ListTile(
+				title: Text('Current Balance'),
+				subtitle: new LinearProgressIndicator(),
+			),
+		);
 	}
 
 	Widget _summaryStreamBuilder(String data, DateTime start, DateTime end, String timeframe) {
@@ -132,28 +139,24 @@ class _HomePageState extends State<HomePage> {
 					.where('timestamp', isLessThanOrEqualTo: end)
 					.snapshots(),
 			builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-				if (!snapshot.hasData) return LinearProgressIndicator();
+				if (!snapshot.hasData) return _buildLoadingSummaryTile(timeframe, start, end);
 				var docs = snapshot.data.documents;
 				print('summaryStream = ${docs.length}');
-				/*if(docs.length == 0) {
-					return _buildSummaryTile(timeframe, income, expense, sum, start, end);
-				}*/
+				if(docs.length != 0) {
+					var list = docs.map((doc) {
+						var txn = TransactionModel.fromSnapshot(doc);
+						if (txn.type == 'income') {
+							income += txn.amount;
+							return txn.amount;
+						}
+						else {
+							expense += txn.amount * -1;
+							return -1 * txn.amount;
+						}
+					}).toList();
 
-				var list = docs.map((doc) {
-					var txn = TransactionModel.fromSnapshot(doc);
-					if(txn.type == 'income') {
-						income += txn.amount;
-						return txn.amount;
-					}
-					else {
-						expense += txn.amount * -1;
-						return -1*txn.amount;
-					}
-				}).toList();
-
-//				income = list.reduce((income, i) => (i >= 0) ? sum + i : 0);
-//				expense = list.reduce((income, i) => (i < 0) ? sum + i : 0);
-				sum = list.reduce((sum, i) => sum + i);
+					sum = list.reduce((sum, i) => sum + i);
+				}
 
 				return _buildSummaryTile(timeframe, income, expense, sum, start, end);
 			},
@@ -161,9 +164,6 @@ class _HomePageState extends State<HomePage> {
 	}
 
 	Widget _buildSummaryTile(String text, income, expense, sum, start, end) {
-		print('Income: $income');
-		print('Expense: $expense');
-		print('Sum: $sum');
 		var dateText = ((text.compareTo("Today") == 0) ? formatter.format(start) : formatter.format(start) + " - " + formatter.format(end));
 		return ListTile(
 			title: ListTile(
@@ -198,6 +198,17 @@ class _HomePageState extends State<HomePage> {
 					),
 				],
 			),
+		);
+	}
+	
+	Widget _buildLoadingSummaryTile(String text, start, end) {
+		var dateText = ((text.compareTo("Today") == 0) ? formatter.format(start) : formatter.format(start) + " - " + formatter.format(end));
+		return ListTile(
+			title: ListTile(
+				title: Text(text),
+				trailing: Text(dateText),
+			),
+			subtitle: new LinearProgressIndicator(),
 		);
 	}
 }
