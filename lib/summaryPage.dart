@@ -11,16 +11,17 @@ import 'package:charts_flutter/flutter.dart';
 import 'utility.dart';
 import 'Transaction.dart';
 
-class HomePage extends StatefulWidget {
-	HomePage({Key key, this.title}) : super(key: key);
+
+class SummaryPage extends StatefulWidget {
+	SummaryPage({Key key, this.title,}) : super(key:key);
+
 	final String title;
 
 	@override
-	_HomePageState createState() => _HomePageState();
+	_SummaryPageState createState() => _SummaryPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-
+class _SummaryPageState extends State<SummaryPage> {
 	String _userID;
 	var formatter = new DateFormat.yMEd();
 
@@ -29,6 +30,9 @@ class _HomePageState extends State<HomePage> {
 		return Scaffold(
 			appBar: (widget.title != "") ? AppBar(title: Text(widget.title)) : null,
 			body: _buildBody(context),
+//			floatingActionButton: _buildFAB(context),
+//			floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//			bottomNavigationBar: _buildBottomBar(context),
 		);
 	}
 
@@ -46,14 +50,24 @@ class _HomePageState extends State<HomePage> {
 					case ConnectionState.done:
 						if (snapshot.hasError)
 							return Text('Error: ${snapshot.error}');
-						return _buildBodyLayout(context, snapshot.data);
+						return _buildSummaryLayout(context, snapshot.data);
 				}
 				return null; // unreachable
 			}
 		);
 	}
 
-	Widget _buildBodyLayout(BuildContext context, String data) {
+	Widget _buildFAB(BuildContext context) {
+		return FloatingActionButton(
+//			key: page.fabKey,
+			tooltip: 'Show explanation',
+//			backgroundColor: page.fabColor,
+			child: Icon(Icons.add),
+//			onPressed: _showExplanatoryText
+		);
+	}
+
+	Widget _buildSummaryLayout(BuildContext context, String data) {
 		var startMonth, endMonth, startWeek, endWeek, startDay, endDay;
 		var currentDate = new DateTime.now();
 		var date = new DateTime(currentDate.year, currentDate.month, currentDate.day);
@@ -80,7 +94,7 @@ class _HomePageState extends State<HomePage> {
 				_balanceStreamBuilder(data),
 				_summaryStreamBuilder(data, startDay, endDay, "Today"),
 				_summaryStreamBuilder(data, startWeek, endWeek, "This Week"),
-				_summaryStreamBuilder(data, startMonth, endMonth, "This Month")
+				_summaryStreamBuilder(data, startMonth, endMonth, "This Month"),
 			],
 		);
 	}
