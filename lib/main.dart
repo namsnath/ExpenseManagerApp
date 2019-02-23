@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 import 'category.dart';
 import 'transactionList.dart';
-import 'home.dart';
+import 'summaryPage.dart';
+import 'homePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
 				'categoryPage': (context) => CategoryPage(title: 'Expense Manager Category Page',),
 				'/': (context) => LoginPage(title: 'Expense Manager Login Page'),
 				'transactionListPage': (context) => TransactionListPage(title: 'Expense Manager Transaction List Page'),
-				'homePage': (context) => HomePage(title: 'Expense Manager Home Page'),
+				'summaryPage': (context) => SummaryPage(title: 'Expense Manager Home Page'),
+				'homePage': (context) => MyHomePage(title: 'Home Page'),
 			},
 			title: 'Expense Manager',
 			theme: ThemeData(
