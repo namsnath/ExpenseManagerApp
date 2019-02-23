@@ -25,7 +25,7 @@ class _TransactionListPageState extends State<TransactionListPage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBar(title: Text('Transaction List')),
+			appBar: (widget.title != "") ? AppBar(title: Text(widget.title)) : null,
 			body: _buildBody(context),
 		);
 	}

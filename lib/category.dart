@@ -13,7 +13,7 @@ class _CategoryPageState extends State<CategoryPage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBar(title: Text('Categories')),
+			appBar: (widget.title != "") ? AppBar(title: Text(widget.title)) : null,
 			body: _buildBody(context),
 		);
 	}

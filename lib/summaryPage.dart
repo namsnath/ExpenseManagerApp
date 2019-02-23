@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
-			appBar: AppBar(title: Text('Home Page')),
+			appBar: (widget.title != "") ? AppBar(title: Text(widget.title)) : null,
 			body: _buildBody(context),
 		);
 	}
