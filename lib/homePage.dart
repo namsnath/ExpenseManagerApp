@@ -19,9 +19,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 	static final tabPage = [
+		SummaryPage(title: '',),
 		TransactionListPage(title: '',),
 //		CategoryPage(title: 'Categories',),
-		SummaryPage(title: 'Summary',),
 //		TransactionListPage(title: 'Transactions',),
 	];
 
@@ -55,19 +55,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 				notchedShape: CircularNotchedRectangle(),
 				onTabSelected: _selectedTab,
 				items: [
+					FABBottomAppBarItem(iconData: Icons.pie_chart, text: 'Summary'),
 					FABBottomAppBarItem(iconData: Icons.list, text: 'Transactions'),
-					FABBottomAppBarItem(iconData: Icons.pie_chart_outlined, text: 'Summary'),
 //					FABBottomAppBarItem(iconData: Icons.dashboard, text: 'Bottom'),
 //					FABBottomAppBarItem(iconData: Icons.info, text: 'Bar'),
 				],
 			),
 			floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-			floatingActionButton: _buildFab(context),
+//			floatingActionButton: _buildFab(context),
+			floatingActionButton: FloatingActionButton(
+				onPressed: null,
+				tooltip: 'Increment',
+				child: Icon(Icons.add),
+				elevation: 2.0,
+			),
 		);
 	}
 
 	Widget _buildFab(BuildContext context) {
-		final icons = [ Icons.sms, Icons.mail, Icons.phone ];
+		final icons = [ Icons.trending_up, Icons.trending_down ];
+		final text = [ 'Income', 'Expense' ];
 		return AnchoredOverlay(
 			showOverlay: true,
 			overlayBuilder: (context, offset) {
@@ -76,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 					child: FabWithIcons(
 						icons: icons,
 						onIconTapped: _selectedFab,
+						text: text,
 					),
 				);
 			},
@@ -85,7 +93,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 				tooltip: 'Increment',
 				child: Icon(Icons.add),
 				elevation: 2.0,
-				isExtended: true,
 //				label: Text('Expense'),
 //				icon: Icon(Icons.add)
 			),

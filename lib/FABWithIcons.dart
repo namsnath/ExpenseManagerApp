@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 // https://stackoverflow.com/questions/46480221/flutter-floating-action-button-with-speed-dail
 class FabWithIcons extends StatefulWidget {
-	FabWithIcons({this.icons, this.onIconTapped});
+	FabWithIcons({this.icons, this.onIconTapped, this.text});
 	final List<IconData> icons;
+	final List<String> text;
 	ValueChanged<int> onIconTapped;
 	@override
 	State createState() => FabWithIconsState();
@@ -39,8 +40,8 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
 		Color foregroundColor = Theme.of(context).accentColor;
 		return Container(
 			height: 70.0,
-			width: 56.0,
-			alignment: FractionalOffset.topCenter,
+			width: 150.0,
+			alignment: (index % 2 == 1) ? FractionalOffset.topCenter : FractionalOffset.topCenter,
 			child: ScaleTransition(
 				scale: CurvedAnimation(
 					parent: _controller,
@@ -55,6 +56,7 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
 					mini: true,
 					child: Icon(widget.icons[index], color: foregroundColor),
 					onPressed: () => _onTapped(index),
+					tooltip: widget.text[index],
 				),
 			),
 		);
