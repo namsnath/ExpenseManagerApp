@@ -28,6 +28,12 @@ class MyApp extends StatelessWidget {
       title: 'Expense Manager',
       theme: ThemeData(
         brightness: Brightness.dark,
+        primaryColor: Colors.black,
+        accentColor: Color.fromRGBO(0, 148, 255, 1.0),
+        bottomAppBarColor: Colors.black,
+        backgroundColor: Colors.black,
+        cardColor: Color.fromRGBO(35, 43, 43, 1.0),
+        buttonColor: Color.fromRGBO(0, 148, 255, 1.0),
       ),
     );
   }

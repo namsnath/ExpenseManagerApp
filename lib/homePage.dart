@@ -50,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',
         color: Colors.grey,
-        selectedColor: Colors.red,
+        backgroundColor: Theme.of(context).bottomAppBarColor,
+        selectedColor: Theme.of(context).accentColor,
         notchedShape: CircularNotchedRectangle(),
         onTabSelected: _selectedTab,
         items: [
@@ -89,6 +90,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 tooltip: 'Add transaction',
                 child: Icon(Icons.add),
                 elevation: 2.0,
+                backgroundColor: Color.fromRGBO(0, 148, 255, 1.0),
+                foregroundColor: Colors.white,
               );
           }
           return null; // unreachable
