@@ -101,16 +101,45 @@ class _TransactionListPageState extends State<TransactionListPage> {
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: ListTile(
-          leading: Text(formatter.format(txn.timestamp)),
-          trailing: Text(
-              ((type == 'income') ? '+' : '-') + txn.amount.toString(),
-              style: TextStyle(
-                  color: (type == 'income') ? Colors.green : Colors.red)),
-          title: Text(txn.description),
-          onTap: () => print(txn),
+        child: Row(
+          children: <Widget>[
+            new Flexible(
+              child:Card(
+                color: Theme.of(context).backgroundColor,
+                child: ListTile(
+                  title: Text(formatter.format(txn.timestamp)),
+                  subtitle: Text(
+                    ((type == 'income') ? '+' : '-') + txn.amount.toString(),
+                    style: TextStyle(color: (type == 'income') ? Colors.green : Colors.red)
+                  ),
+                ),
+              ),
+            ),
+            new Flexible(
+              child:Card(
+                color: Theme.of(context).backgroundColor,
+                child: ListTile(
+                  trailing: MaterialButton(
+                    child: Text('Delete'),
+                    color: Colors.red,
+                    onPressed: () => doDelete(txn.reference.documentID),
+                  )
+                ), 
+              ),
+            ),
+            // MaterialButton(
+            //   child: Text('Delete'),
+            //   color: Colors.red,
+            // ),
+          ],
         ),
       ),
     );
+  }
+
+
+  doDelete(String ref) {
+    print('Delete for ' + ref + ' clicked');
+    Firestore.instance.collection('transactions').document(ref).delete();
   }
 }
